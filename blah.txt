@@ -1,1 +1,0 @@
-ADJ|C|CP|DET|N|N’|NP|P|PP|S|V|VP
