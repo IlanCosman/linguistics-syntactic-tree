@@ -2,6 +2,11 @@
   "name": "linguistics-syntactic-tree",
   "displayName": "linguistics-syntactic-tree",
   "description": "Syntax highlighting and formatting for linguistics syntactic trees",
+  "publisher": "Ilan Cosman",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/IlanCosman/linguistics-syntactic-tree"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.64.0"
