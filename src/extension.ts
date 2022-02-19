@@ -24,8 +24,21 @@ const formattingEditProvider: vscode.DocumentFormattingEditProvider = {
 const getFormatRangeEdits = async (
   document: TextDocument
 ): Promise<ReadonlyArray<TextEdit>> => {
-  let result = document.getText();
-  result = result.replace(/\[/g, "\n[");
+  let result = "";
+  let indent = 0;
+  for (const char of document.getText()) {
+    if (char === "[") {
+      result += "\n" + " ".repeat(indent * 4);
+      indent++;
+    } else if (char === "]") {
+      indent--;
+    }
+    result += char;
+  }
+
+  result = result.replace("\n", ""); // Remove newline at the beginning
+  result = result.replace(/ \n/g, "\n"); // Remove trailing spaces from each line
+
   return [
     new TextEdit(new Range(0, 0, Number.MAX_VALUE, Number.MAX_VALUE), result),
   ];
