@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "lst",
+  "patterns": [
+    {
+      "include": "#keywords"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.lst",
+          "match": "\\b(ADJ|C|CP|DET|N|N'|NP|P|PP|S|V|VP)\\b"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.lst"
+}
