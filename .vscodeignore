@@ -1,4 +1,6 @@
+.github
 .gitignore
+.mega-linter.yml
 .vscode-test/**
 .vscode/**
 .yarnrc
