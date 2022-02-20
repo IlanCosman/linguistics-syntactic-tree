@@ -79,12 +79,12 @@ const getCompletions = async (
 
   let blockRules;
   switch (currentBlock) {
-    case "NP":
+    case "CP":
     case "N'":
+    case "NP":
     case "PP":
     case "S":
     case "VP":
-    case "CP":
       return Object.entries(rules[currentBlock]).map((rule) =>
         getCompletionFromRule(rule)
       );
