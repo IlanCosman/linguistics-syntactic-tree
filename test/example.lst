@@ -1,1 +1,9 @@
-[S [NP [N' [N This]]] [VP [V is] [NP [N' [N a wug]]]]]
+[S
+    [NP
+        [N'
+            [N This]]]
+    [VP
+        [V is]
+        [NP
+            [N'
+                [N a wug]]]]]

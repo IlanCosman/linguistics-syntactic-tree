@@ -20,5 +20,15 @@
     ["(", ")"],
     ["\"", "\""],
     ["'", "'"]
+  ],
+  "onEnterRules": [
+    {
+      "beforeText": "^.*\\[.*\\]",
+      "action": { "indent": "none" }
+    },
+    {
+      "beforeText": "^.*\\[",
+      "action": { "indent": "indent" }
+    }
   ]
 }
