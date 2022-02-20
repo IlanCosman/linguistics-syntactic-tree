@@ -74,7 +74,7 @@ const getCompletions = async (
     new Range(new Position(0, 0), position)
   );
 
-  const blocks = [...textUntilPosition.matchAll(/\[\w*/g)];
+  const blocks = [...textUntilPosition.matchAll(/\[[\w\']*/g)];
 
   if (blocks.length === 0) {
     return [getCompletionFromRule(Object.entries(rules["Empty Page"])[0])];
