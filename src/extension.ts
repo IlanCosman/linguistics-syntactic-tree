@@ -76,20 +76,17 @@ const getCompletions = async (
 
   const blocks = [...textUntilPosition.matchAll(/\[\w*/g)];
 
-  let currentBlock;
   if (blocks.length === 0) {
-    currentBlock = "";
-  } else {
-    currentBlock = blocks[blocks.length - 1].toString().substring(1);
+    return [getCompletionFromRule(Object.entries(rules["Empty Page"])[0])];
   }
 
+  const currentBlock = blocks[blocks.length - 1].toString().substring(1);
   switch (currentBlock) {
     case "CP":
     case "N'":
     case "NP":
     case "PP":
     case "S":
-    case "":
     case "VP":
       return Object.entries(rules[currentBlock]).map((rule) =>
         getCompletionFromRule(rule)
