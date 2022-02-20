@@ -17,3 +17,7 @@ An extension to highlight and format linguistic syntactic trees.
 ![highlighted.png](assets/images/highlighted.png)
 
 ![formatted.png](assets/images/formatted.png)
+
+### Completions
+
+![formatted.png](assets/videos/completions.gif)
