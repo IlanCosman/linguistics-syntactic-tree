@@ -69,13 +69,25 @@ const getCompletions = async (
   document: TextDocument,
   position: Position
 ): Promise<ReadonlyArray<CompletionItem>> => {
-  const regex = /\[\w+/g;
+  const completions: CompletionItem[] = [];
+
   const textUntilPosition = document.getText(
     new Range(new Position(0, 0), position)
   );
 
-  const matches = [...textUntilPosition.matchAll(regex)];
-  const closestMatchBeforePosition = matches[matches.length - 1];
-
-  return [new CompletionItem(closestMatchBeforePosition.toString())];
+  const blocks = [...textUntilPosition.matchAll(/\[\w+/g)];
+  const currentBlock = blocks[blocks.length - 1].toString();
+  
+  switch (currentBlock.substring(1)) {
+    case "NP":
+      const NP_to_DET_NBAR = new CompletionItem(
+        "NP ➡ DET N'",
+        vscode.CompletionItemKind.Snippet
+      );
+      NP_to_DET_NBAR.insertText = "[NP\n\t[DET ${1:det}]\n\t[N'\n\t\t$0]]";
+      completions.push(NP_to_DET_NBAR);
+      break;
+  }
+  
+  return completions;
 };
