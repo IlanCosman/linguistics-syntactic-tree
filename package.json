@@ -40,12 +40,6 @@
         "scopeName": "source.lst",
         "path": "./syntaxes/lst.tmLanguage.json"
       }
-    ],
-    "snippets": [
-      {
-        "language": "lst",
-        "path": "./snippets.json"
-      }
     ]
   },
   "scripts": {

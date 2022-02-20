@@ -1,11 +1,23 @@
 import * as vscode from "vscode";
-import { Range, TextDocument, TextEdit } from "vscode";
+import {
+  CompletionItem,
+  Position,
+  Range,
+  TextDocument,
+  TextEdit,
+} from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.languages.registerDocumentFormattingEditProvider(
       "lst",
       formattingEditProvider
+    )
+  );
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider(
+      "lst",
+      completionItemProvider
     )
   );
 }
@@ -40,4 +52,30 @@ const getFormatRangeEdits = async (
   return [
     new TextEdit(new Range(0, 0, Number.MAX_VALUE, Number.MAX_VALUE), result),
   ];
+};
+
+const completionItemProvider: vscode.CompletionItemProvider = {
+  provideCompletionItems: async (
+    document: vscode.TextDocument,
+    position: Position,
+    token: vscode.CancellationToken
+  ): Promise<vscode.CompletionItem[]> => {
+    const edits = await getCompletions(document, position);
+    return token.isCancellationRequested ? [] : (edits as CompletionItem[]);
+  },
+};
+
+const getCompletions = async (
+  document: TextDocument,
+  position: Position
+): Promise<ReadonlyArray<CompletionItem>> => {
+  const regex = /\[\w+/g;
+  const textUntilPosition = document.getText(
+    new Range(new Position(0, 0), position)
+  );
+
+  const matches = [...textUntilPosition.matchAll(regex)];
+  const closestMatchBeforePosition = matches[matches.length - 1];
+
+  return [new CompletionItem(closestMatchBeforePosition.toString())];
 };
