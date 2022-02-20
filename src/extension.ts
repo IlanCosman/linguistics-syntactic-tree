@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import * as rules from "./rules.json";
 import {
   CompletionItem,
   Position,
@@ -60,8 +61,8 @@ const completionItemProvider: vscode.CompletionItemProvider = {
     position: Position,
     token: vscode.CancellationToken
   ): Promise<vscode.CompletionItem[]> => {
-    const edits = await getCompletions(document, position);
-    return token.isCancellationRequested ? [] : (edits as CompletionItem[]);
+    const comps = await getCompletions(document, position);
+    return token.isCancellationRequested ? [] : (comps as CompletionItem[]);
   },
 };
 
@@ -69,25 +70,31 @@ const getCompletions = async (
   document: TextDocument,
   position: Position
 ): Promise<ReadonlyArray<CompletionItem>> => {
-  const completions: CompletionItem[] = [];
-
   const textUntilPosition = document.getText(
     new Range(new Position(0, 0), position)
   );
 
   const blocks = [...textUntilPosition.matchAll(/\[\w+/g)];
-  const currentBlock = blocks[blocks.length - 1].toString();
-  
-  switch (currentBlock.substring(1)) {
+  const currentBlock = blocks[blocks.length - 1].toString().substring(1);
+
+  let blockRules;
+  switch (currentBlock) {
     case "NP":
-      const NP_to_DET_NBAR = new CompletionItem(
-        "NP ➡ DET N'",
-        vscode.CompletionItemKind.Snippet
+    case "N'":
+    case "PP":
+    case "S":
+      return Object.entries(rules[currentBlock]).map((rule) =>
+        getCompletionFromRule(rule)
       );
-      NP_to_DET_NBAR.insertText = "[NP\n\t[DET ${1:det}]\n\t[N'\n\t\t$0]]";
-      completions.push(NP_to_DET_NBAR);
-      break;
+    default:
+      return [];
   }
-  
-  return completions;
 };
+
+function getCompletionFromRule(
+  rule: [string, { body: string[] }]
+): CompletionItem {
+  const comp = new CompletionItem(rule[0], vscode.CompletionItemKind.Snippet);
+  comp.insertText = new vscode.SnippetString(rule[1].body.join("\n"));
+  return comp;
+}
