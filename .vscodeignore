@@ -6,5 +6,6 @@
 **/*.map
 **/*.ts
 **/tsconfig.json
+assets/
 src/**
 vsc-extension-quickstart.md
