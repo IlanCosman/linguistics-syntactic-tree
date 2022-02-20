@@ -39,7 +39,7 @@ const getFormatRangeEdits = async (
   result = result.replace("\n", ""); // Remove newline at the beginning
   result = result.replace(/ \n/g, "\n"); // Remove trailing spaces from each line
   result = result.replace(/ *\]/g, "]"); // Remove spaces from before any ]
-  result = result.replace(/\n\s+\n/g, "\n"); // Remove empty lines
+  result = result.replace(/\n\s*\n/g, "\n"); // Remove empty lines
 
   return [
     new TextEdit(new Range(0, 0, Number.MAX_VALUE, Number.MAX_VALUE), result),
