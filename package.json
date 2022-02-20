@@ -13,7 +13,8 @@
   },
   "categories": [
     "Programming Languages",
-    "Formatters"
+    "Formatters",
+    "Snippets"
   ],
   "activationEvents": [
     "onLanguage:lst"
@@ -40,10 +41,10 @@
         "path": "./syntaxes/lst.tmLanguage.json"
       }
     ],
-    "commands": [
+    "snippets": [
       {
-        "command": "lst.helloWorld",
-        "title": "Hello World"
+        "language": "lst",
+        "path": "./snippets.json"
       }
     ]
   },
