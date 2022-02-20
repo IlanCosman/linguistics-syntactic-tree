@@ -1,53 +1,58 @@
 {
   "CP": {
     "CP ➡ C S": {
-      "body": ["[VP", "\t[C ${1:c}]", "\t[S", "\t\t$0]]"]
+      "body": ["[C ${1:c}]", "[S", "\t$0]"]
     }
   },
   "N'": {
     "N' ➡ ADJ N'": {
-      "body": ["[N'", "\t[ADJ ${1:adj}]", "\t[N'", "\t\t$0]]"]
+      "body": ["[ADJ ${1:adj}]", "[N'", "\t$0]"]
     },
     "N' ➡ N": {
-      "body": ["[N'", "\t[N ${0:noun}]]"]
+      "body": ["[N ${0:noun}]"]
     }
   },
   "NP": {
     "NP ➡ DET N'": {
-      "body": ["[NP", "\t[DET ${1:det}]", "\t[N'", "\t\t$0]]"]
+      "body": ["[DET ${1:det}]", "[N'", "\t$0]"]
     },
     "NP ➡ N'": {
-      "body": ["[NP", "\t[N'", "\t\t$0]]"]
+      "body": ["[N'", "\t$0]"]
     },
     "NP ➡ NP PP": {
-      "body": ["[NP", "\t[NP", "\t\t$1]", "\t[PP", "\t\t$0]]"]
+      "body": ["[NP", "\t$1]", "[PP", "\t$0]"]
     }
   },
   "PP": {
     "PP ➡ P NP": {
-      "body": ["[PP", "\t[P ${1:p}]", "\t[NP", "\t\t$0]]"]
+      "body": ["[P ${1:p}]", "[NP", "\t$0]"]
     }
   },
   "S": {
     "S ➡ NP VP": {
-      "body": ["[S", "\t[NP", "\t\t$1]", "\t[VP", "\t\t$0]]"]
+      "body": ["[NP", "\t$1]", "[VP", "\t$0]"]
     }
   },
   "VP": {
     "VP ➡ V": {
-      "body": ["[VP", "\t[V ${0:verb}]]"]
+      "body": ["[V ${0:verb}]"]
     },
     "VP ➡ V CP": {
-      "body": ["[VP", "\t[V ${1:verb}]", "\t[CP", "\t\t$0]]"]
+      "body": ["[V ${1:verb}]", "[CP", "\t$0]"]
     },
     "VP ➡ V NP": {
-      "body": ["[VP", "\t[V ${1:verb}]", "\t[NP", "\t\t$0]]"]
+      "body": ["[V ${1:verb}]", "[NP", "\t$0]"]
     },
     "VP ➡ V PP": {
-      "body": ["[VP", "\t[V ${1:verb}]", "\t[PP", "\t\t$0]]"]
+      "body": ["[V ${1:verb}]", "[PP", "\t$0]"]
     },
     "VP ➡ VP PP": {
-      "body": ["[VP", "\t[VP", "\t\t$1]", "\t[PP", "\t\t$0]]"]
+      "body": ["[VP", "\t$1]", "[PP", "\t$0]"]
+    }
+  },
+  "": {
+    "S ➡ NP VP": {
+      "body": ["[S", "\t[NP", "\t\t$1]", "\t[VP", "\t\t$0]]"]
     }
   }
 }
