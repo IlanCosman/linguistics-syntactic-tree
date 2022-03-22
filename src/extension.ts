@@ -17,14 +17,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 const formattingEditProvider: vscode.DocumentFormattingEditProvider = {
   provideDocumentFormattingEdits: async (document, _, token) => {
-    const edits = await getFormatRangeEdits(document);
+    const edits = getFormatRangeEdits(document);
     return token.isCancellationRequested ? [] : (edits as vscode.TextEdit[]);
   },
 };
 
-const getFormatRangeEdits = async (
+const getFormatRangeEdits = (
   document: TextDocument
-): Promise<ReadonlyArray<vscode.TextEdit>> => {
+): ReadonlyArray<vscode.TextEdit> => {
   let result = "";
   let indent = 0;
   for (const char of document.getText()) {
@@ -53,15 +53,15 @@ const getFormatRangeEdits = async (
 
 const completionItemProvider: vscode.CompletionItemProvider = {
   provideCompletionItems: async (document, position, token) => {
-    const comps = await getCompletions(document, position);
+    const comps = getCompletions(document, position);
     return token.isCancellationRequested ? [] : (comps as CompletionItem[]);
   },
 };
 
-const getCompletions = async (
+const getCompletions = (
   document: TextDocument,
   position: Position
-): Promise<ReadonlyArray<CompletionItem>> => {
+): ReadonlyArray<CompletionItem> => {
   const textToPos = document.getText(new Range(new Position(0, 0), position));
   const blocks = [...textToPos.matchAll(/\[[\w\']*/g)];
 
